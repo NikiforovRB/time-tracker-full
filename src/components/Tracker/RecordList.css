@@ -1,0 +1,159 @@
+.record-list-section {
+  margin-top: 1rem;
+}
+
+.record-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #2F2F2F;
+}
+
+.record-list-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: normal;
+  color: #666666;
+}
+
+.record-list-add {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  color: #888;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.record-list-add:hover {
+  color: #00bfff;
+}
+
+.record-list-add-img .icon-img {
+  width: 20px;
+  height: 20px;
+}
+
+.record-list-add-img .icon-img.hover {
+  display: none;
+}
+
+.record-list-add-img:hover .icon-img.default {
+  display: none;
+}
+
+.record-list-add-img:hover .icon-img.hover {
+  display: block;
+}
+
+.record-item .icon-btn-img .icon-img {
+  width: 16px;
+  height: 16px;
+}
+
+.record-item .icon-btn-img .icon-img.hover {
+  display: none;
+}
+
+.record-item .icon-btn-img:hover .icon-img.default {
+  display: none;
+}
+
+.record-item .icon-btn-img:hover .icon-img.hover {
+  display: block;
+}
+
+.record-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.record-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0 0.6rem 0;
+  padding-right: 0.75rem;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #2F2F2F;
+  position: relative;
+}
+
+.record-item:last-child {
+  border-bottom: none;
+}
+
+.record-item.active-record .record-time.live {
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+.record-category {
+  flex: 0 0 auto;
+  font-size: 0.9375rem;
+}
+
+.record-time {
+  margin-left: auto;
+  font-size: 0.875rem;
+  color: #888;
+}
+
+.record-duration {
+  color: #5A86EE;
+}
+
+.record-duration-short {
+  color: #666666;
+}
+
+.record-actions {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: none;
+  gap: 0.25rem;
+}
+
+.record-item:hover .record-time {
+  visibility: hidden;
+}
+
+.record-item:hover .record-actions {
+  display: flex;
+}
+
+.record-item.active-record:hover .record-time {
+  visibility: visible;
+}
+
+.record-item.active-record:hover .record-actions {
+  display: none;
+}
+
+.record-item .icon-btn-small {
+  background: none;
+  border: none;
+  color: #666;
+  padding: 0.25rem;
+  cursor: pointer;
+  display: flex;
+}
+
+.record-item .icon-btn-small:hover {
+  color: #fff;
+}

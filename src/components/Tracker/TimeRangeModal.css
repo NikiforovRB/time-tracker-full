@@ -1,0 +1,28 @@
+.time-range-modal .modal-header h2 {
+  font-size: 1rem;
+}
+
+.time-range-modal .modal-body {
+  padding: 1rem;
+}
+
+.time-range-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.time-range-btn {
+  padding: 0.5rem 0.75rem;
+  background: #222;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  min-width: 64px;
+}
+
+.time-range-btn:hover {
+  background: #333;
+}

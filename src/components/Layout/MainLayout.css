@@ -1,0 +1,11 @@
+.main-layout {
+  min-height: 100vh;
+  background: #000;
+  color: #fff;
+}
+
+.main-content {
+  padding: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}

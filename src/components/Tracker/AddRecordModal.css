@@ -1,0 +1,169 @@
+.add-record-modal .modal-header h2 {
+  font-weight: normal;
+}
+
+.edit-record-modal .modal-header h2 {
+  font-size: 1rem;
+}
+
+.add-record-modal .modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.add-record-modal .form-label {
+  font-weight: normal;
+}
+
+.form-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.875rem;
+  color: #ccc;
+}
+
+.form-label.row {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-select,
+.form-input {
+  padding: 0.5rem 0.75rem;
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.form-input {
+  min-width: 100px;
+}
+
+.form-error {
+  color: #e55;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.add-record-modal .btn-primary {
+  align-self: flex-start;
+  padding: 0.6rem 1.2rem;
+  background: #0f68e4;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.add-record-modal .btn-primary.btn-full {
+  width: 100%;
+  align-self: stretch;
+}
+
+.add-record-modal .btn-primary:hover {
+  background: #3882e9;
+}
+
+.form-row-fields {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.form-row-fields .form-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.edit-category-dropdown {
+  position: relative;
+}
+
+.edit-category-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: normal;
+  text-align: left;
+  cursor: pointer;
+}
+
+.edit-category-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.edit-category-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 0.25rem;
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 6px;
+  max-height: 200px;
+  overflow: auto;
+  z-index: 10;
+}
+
+.edit-category-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1rem;
+  font-weight: normal;
+  text-align: left;
+  cursor: pointer;
+}
+
+.edit-category-option:hover {
+  background: #333;
+}
+
+.btn-save {
+  background: #0f68e4 !important;
+  color: #ffffff !important;
+}
+
+.btn-save:hover {
+  background: #3882e9 !important;
+}
+
+.add-record-modal .btn-save.btn-full,
+.edit-record-modal .btn-save.btn-full {
+  width: 100%;
+  align-self: stretch;
+}
+
+.edit-record-modal .form-row-fields {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.edit-record-modal .form-row-fields .form-label {
+  flex: 1;
+  min-width: 0;
+}

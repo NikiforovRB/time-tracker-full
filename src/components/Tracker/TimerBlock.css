@@ -1,0 +1,204 @@
+.timer-block {
+  margin-bottom: 1.5rem;
+  position: relative;
+  text-align: center;
+}
+
+.timer-category-below {
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.timer-category-below-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.timer-category-below {
+  position: relative;
+  z-index: 1;
+}
+
+.timer-dropdown {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  background: #111;
+  border-radius: 6px;
+  padding: 0.25rem 0;
+  min-width: 160px;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.timer-dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 0.875rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.timer-dropdown-item:hover {
+  background: #222;
+}
+
+.timer-display-row {
+  margin-bottom: 0.35rem;
+}
+
+.timer-digits {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+}
+
+.timer-digits-text {
+  font-size: 1.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-digits.running .timer-digits-text {
+  font-size: 1.75rem;
+  color: #ffffff;
+}
+
+.timer-digits.stopped .timer-category-inline {
+  color: #5A86EE;
+  font-size: 1.125rem;
+}
+
+.timer-category-inline {
+  margin-right: 0.5rem;
+}
+
+.timer-stop-visual {
+  display: inline-flex;
+  align-items: center;
+}
+
+.timer-stop-visual .timer-stop-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.timer-stop-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: inline-flex;
+  position: relative;
+}
+
+.timer-stop-btn .timer-stop-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.timer-stop-btn .timer-stop-icon.hover {
+  display: none;
+}
+
+.timer-stop-btn:hover .timer-stop-icon.default {
+  display: none;
+}
+
+.timer-stop-btn:hover .timer-stop-icon.hover {
+  display: block;
+}
+
+.timer-display-row.timer-digits.stopped-only-total {
+  min-height: 48px;
+  justify-content: center;
+}
+
+.timer-total-day {
+  font-size: 1.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-row-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.timer-stopped-hover-wrap {
+  position: relative;
+  min-height: 48px;
+}
+
+.timer-category-btn {
+  position: relative;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.8125rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.timer-category-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.timer-start-btn {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: inline-flex;
+}
+
+.timer-start-btn:hover {
+  color: #fff;
+}
+
+@media (min-width: 601px) {
+  .timer-stopped-hover-wrap .timer-display-row.stopped-only-total,
+  .timer-stopped-hover-wrap .timer-row-bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    justify-content: center;
+    margin: 0;
+  }
+
+  .timer-stopped-hover-wrap .timer-row-bottom {
+    display: none;
+  }
+
+  .timer-stopped-hover-wrap:hover .timer-display-row.stopped-only-total {
+    display: none;
+  }
+
+  .timer-stopped-hover-wrap:hover .timer-row-bottom {
+    display: flex;
+  }
+}

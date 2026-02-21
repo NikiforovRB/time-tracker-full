@@ -1,0 +1,9 @@
+{
+  "name": "Трекер времени",
+  "short_name": "Трекер",
+  "description": "Отслеживание рабочего времени",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "display": "standalone",
+  "start_url": "/"
+}

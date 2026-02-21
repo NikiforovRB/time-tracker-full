@@ -1,0 +1,170 @@
+.app-header {
+  background: #000;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  position: relative;
+}
+
+.header-row-first {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.header-tabs {
+  display: flex;
+  gap: 0.5rem;
+  padding-left: 0;
+}
+
+.header-tabs a:first-child {
+  padding-left: 0;
+}
+
+.header-tabs a {
+  color: #666666;
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+}
+
+.header-tabs a:hover {
+  color: #5A86EE;
+}
+
+.header-tabs a.active {
+  color: #666666;
+  background: transparent;
+}
+
+.header-tabs a.active:hover {
+  color: #ffffff;
+}
+
+.header-date-row {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.header-date-nav {
+  background: none;
+  border: none;
+  color: #fff;
+  padding: 0.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-date-nav:hover {
+  color: #5A86EE;
+}
+
+.header-date {
+  font-size: 0.9375rem;
+  min-width: 180px;
+  text-align: center;
+}
+
+.header-date-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  min-width: 180px;
+}
+
+.header-date-btn:hover {
+  color: #5A86EE;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: auto;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: #888;
+  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover {
+  color: #fff;
+}
+
+.icon-btn-img {
+  position: relative;
+  padding: 0.5rem;
+}
+
+.icon-btn-img .icon-img,
+.header-date-nav-img .icon-img {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.icon-btn-img .icon-img.hover,
+.header-date-nav-img .icon-img.hover {
+  display: none;
+}
+
+.icon-btn-img:hover .icon-img.default,
+.header-date-nav-img:hover .icon-img.default {
+  display: none;
+}
+
+.icon-btn-img:hover .icon-img.hover,
+.header-date-nav-img:hover .icon-img.hover {
+  display: block;
+}
+
+.header-date-nav-img .icon-img {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 599px) {
+  .app-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-row-first {
+    order: 1;
+    justify-content: space-between;
+  }
+
+  .header-actions {
+    margin-left: auto;
+  }
+
+  .header-date-row {
+    position: static;
+    transform: none;
+    order: 2;
+    justify-content: center;
+  }
+}

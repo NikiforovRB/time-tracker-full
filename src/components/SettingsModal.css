@@ -1,0 +1,295 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal {
+  background: #111;
+  border-radius: 8px;
+  max-width: 480px;
+  width: 100%;
+  max-height: 90vh;
+  overflow: auto;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #222;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: normal;
+}
+
+.settings-modal .modal-header h2 {
+  font-size: 1rem;
+}
+
+.settings-modal .category-row .icon-btn-img .icon-img {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.settings-modal .category-row .icon-btn-img .icon-img.hover {
+  display: none;
+}
+
+.settings-modal .category-row .icon-btn-img:hover .icon-img.default {
+  display: none;
+}
+
+.settings-modal .category-row .icon-btn-img:hover .icon-img.hover {
+  display: block;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+}
+
+.modal-close:hover {
+  color: #fff;
+}
+
+.modal-body {
+  padding: 1.25rem;
+}
+
+.settings-section {
+  margin-bottom: 1.5rem;
+}
+
+.settings-section h3 {
+  margin: 0 0 0.75rem;
+  font-size: 0.9375rem;
+  font-weight: normal;
+  color: #ccc;
+}
+
+.add-category-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.add-input {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.5rem 0.75rem;
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #fff;
+}
+
+.add-color {
+  width: 40px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.add-color-hex {
+  width: 80px;
+  padding: 0.5rem;
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 6px;
+  color: #fff;
+  font-family: monospace;
+}
+
+.btn-primary {
+  padding: 0.5rem 1rem;
+  background: #0f68e4;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #3882e9;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.category-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  position: relative;
+  transition: background 0.15s;
+}
+
+.category-row:hover {
+  background: #1a1a1a;
+}
+
+.category-row.dragging {
+  opacity: 0.6;
+}
+
+.category-row.drop-target::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: #00bfff;
+  z-index: 1;
+}
+
+.category-row-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.category-row-title {
+  flex: 1;
+  font-size: 0.9375rem;
+  font-weight: normal;
+}
+
+.category-eye-btn {
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  display: flex;
+}
+
+.category-eye-btn .icon-img {
+  width: 18px;
+  height: 18px;
+}
+
+.category-eye-btn .icon-img.hover {
+  display: none;
+}
+
+.category-eye-btn:hover .icon-img.default {
+  display: none;
+}
+
+.category-eye-btn:hover .icon-img.hover {
+  display: block;
+}
+
+.drag-handle {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: grab;
+  padding: 0.25rem;
+  display: flex;
+  margin-left: auto;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.icon-btn-small {
+  background: none;
+  border: none;
+  color: #888;
+  padding: 0.25rem;
+  cursor: pointer;
+  font-size: 0.8125rem;
+  font-weight: normal;
+}
+
+.icon-btn-small:hover {
+  color: #fff;
+}
+
+.category-row-edit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.edit-input {
+  flex: 1;
+  min-width: 100px;
+  padding: 0.4rem 0.6rem;
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.edit-color {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.edit-color-hex {
+  width: 70px;
+  padding: 0.4rem;
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 0.8125rem;
+}
+
+.btn-small {
+  padding: 0.35rem 0.6rem;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.btn-small:hover {
+  background: #444;
+}
+
+.muted {
+  color: #666;
+  margin: 0;
+  font-weight: normal;
+}

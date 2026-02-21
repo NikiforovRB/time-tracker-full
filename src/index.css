@@ -1,0 +1,79 @@
+@font-face {
+  font-family: 'Gilroy';
+  src: url('./fonts/Gilroy-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+:root {
+  font-family: 'Gilroy', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #fff;
+  background-color: #000000;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #000000;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.modal-close-img {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close-img .icon-img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.modal-close-img .icon-img.hover {
+  display: none;
+}
+
+.modal-close-img:hover .icon-img.default {
+  display: none;
+}
+
+.modal-close-img:hover .icon-img.hover {
+  display: block;
+}
+
+input, select, textarea {
+  font-family: inherit;
+}
+
+@media (max-width: 600px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
