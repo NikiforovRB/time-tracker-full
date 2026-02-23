@@ -72,3 +72,46 @@
 .login-toggle:hover {
   color: #fff;
 }
+
+.login-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.login-confirm-popup {
+  background: #111;
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 400px;
+  width: 100%;
+  border: 1px solid #222;
+}
+
+.login-confirm-text {
+  margin: 0 0 1.25rem;
+  color: #ccc;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.login-confirm-btn {
+  display: block;
+  width: 100%;
+  padding: 0.6rem;
+  background: #0f68e4;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.login-confirm-btn:hover {
+  background: #3882e9;
+}

@@ -3,11 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 import './LoginPage.css';
 
+const CONFIRM_MESSAGE =
+  'На указанный email отправлено письмо для подтверждения регистрации. Если его нет во входящих, проверь папку Спам.';
+
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
+  const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const navigate = useNavigate();
 
   async function handleSubmit(e: React.FormEvent) {
@@ -17,7 +21,7 @@ export default function LoginPage() {
       if (isSignUp) {
         const { error: err } = await supabase.auth.signUp({ email, password });
         if (err) throw err;
-        navigate('/');
+        setShowConfirmPopup(true);
       } else {
         const { error: err } = await supabase.auth.signInWithPassword({ email, password });
         if (err) throw err;
@@ -27,6 +31,11 @@ export default function LoginPage() {
       setError(err instanceof Error ? err.message : 'Ошибка входа');
     }
   }
+
+  const closeConfirmPopup = () => {
+    setShowConfirmPopup(false);
+    navigate('/');
+  };
 
   return (
     <div className="login-page">
@@ -54,6 +63,17 @@ export default function LoginPage() {
           {isSignUp ? 'Уже есть аккаунт? Войти' : 'Нет аккаунта? Зарегистрироваться'}
         </button>
       </div>
+
+      {showConfirmPopup && (
+        <div className="login-confirm-overlay" onClick={closeConfirmPopup}>
+          <div className="login-confirm-popup" onClick={(e) => e.stopPropagation()}>
+            <p className="login-confirm-text">{CONFIRM_MESSAGE}</p>
+            <button type="button" className="login-confirm-btn" onClick={closeConfirmPopup}>
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
