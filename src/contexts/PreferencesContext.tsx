@@ -10,6 +10,7 @@ type PreferencesContextValue = {
   setCompletedTasksBlockVisible: (v: boolean) => Promise<void>;
   setTimelineStartHour: (h: number) => Promise<void>;
   setTimelineEndHour: (h: number) => Promise<void>;
+  setAnalyticsViewMode: (v: 'timelines' | 'calendar') => Promise<void>;
 };
 
 const defaultPrefs: UserPreferences = {
@@ -18,6 +19,7 @@ const defaultPrefs: UserPreferences = {
   timeline_end_hour: 24,
   timeline_visible: true,
   completed_tasks_block_visible: true,
+  analytics_view_mode: 'timelines',
 };
 
 const PreferencesContext = createContext<PreferencesContextValue | null>(null);
@@ -66,6 +68,7 @@ export function PreferencesProvider({ children }: { children: React.ReactNode })
     setCompletedTasksBlockVisible: (v) => update({ completed_tasks_block_visible: v }),
     setTimelineStartHour: (h) => update({ timeline_start_hour: h }),
     setTimelineEndHour: (h) => update({ timeline_end_hour: h }),
+    setAnalyticsViewMode: (v) => update({ analytics_view_mode: v }),
   };
 
   return <PreferencesContext.Provider value={value}>{children}</PreferencesContext.Provider>;

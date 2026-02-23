@@ -46,12 +46,13 @@
   display: none;
 }
 
-.record-list-add-img:hover .icon-img.default {
-  display: none;
-}
-
-.record-list-add-img:hover .icon-img.hover {
-  display: block;
+@media (hover: hover) {
+  .record-list-add-img:hover .icon-img.default {
+    display: none;
+  }
+  .record-list-add-img:hover .icon-img.hover {
+    display: block;
+  }
 }
 
 .record-item .icon-btn-img .icon-img {
@@ -63,12 +64,13 @@
   display: none;
 }
 
-.record-item .icon-btn-img:hover .icon-img.default {
-  display: none;
-}
-
-.record-item .icon-btn-img:hover .icon-img.hover {
-  display: block;
+@media (hover: hover) {
+  .record-item .icon-btn-img:hover .icon-img.default {
+    display: none;
+  }
+  .record-item .icon-btn-img:hover .icon-img.hover {
+    display: block;
+  }
 }
 
 .record-list {

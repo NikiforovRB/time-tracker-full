@@ -22,4 +22,5 @@ export interface UserPreferences {
   timeline_end_hour: number;
   timeline_visible: boolean;
   completed_tasks_block_visible: boolean;
+  analytics_view_mode: 'timelines' | 'calendar';
 }

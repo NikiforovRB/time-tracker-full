@@ -34,17 +34,18 @@
   border-radius: 6px;
 }
 
-.header-tabs a:hover {
-  color: #5A86EE;
+@media (hover: hover) {
+  .header-tabs a:hover {
+    color: #5A86EE;
+  }
+  .header-tabs a.active:hover {
+    color: #ffffff;
+  }
 }
 
 .header-tabs a.active {
   color: #666666;
   background: transparent;
-}
-
-.header-tabs a.active:hover {
-  color: #ffffff;
 }
 
 .header-date-row {
@@ -67,8 +68,10 @@
   justify-content: center;
 }
 
-.header-date-nav:hover {
-  color: #5A86EE;
+@media (hover: hover) {
+  .header-date-nav:hover {
+    color: #5A86EE;
+  }
 }
 
 .header-date {
@@ -88,8 +91,10 @@
   min-width: 180px;
 }
 
-.header-date-btn:hover {
-  color: #5A86EE;
+@media (hover: hover) {
+  .header-date-btn:hover {
+    color: #5A86EE;
+  }
 }
 
 .header-actions {
@@ -110,8 +115,10 @@
   justify-content: center;
 }
 
-.icon-btn:hover {
-  color: #fff;
+@media (hover: hover) {
+  .icon-btn:hover {
+    color: #fff;
+  }
 }
 
 .icon-btn-img {
@@ -131,14 +138,15 @@
   display: none;
 }
 
-.icon-btn-img:hover .icon-img.default,
-.header-date-nav-img:hover .icon-img.default {
-  display: none;
-}
-
-.icon-btn-img:hover .icon-img.hover,
-.header-date-nav-img:hover .icon-img.hover {
-  display: block;
+@media (hover: hover) {
+  .icon-btn-img:hover .icon-img.default,
+  .header-date-nav-img:hover .icon-img.default {
+    display: none;
+  }
+  .icon-btn-img:hover .icon-img.hover,
+  .header-date-nav-img:hover .icon-img.hover {
+    display: block;
+  }
 }
 
 .header-date-nav-img .icon-img {

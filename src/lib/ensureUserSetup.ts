@@ -36,6 +36,7 @@ export async function ensureUserSetup(userId: string): Promise<void> {
       timeline_end_hour: 24,
       timeline_visible: true,
       completed_tasks_block_visible: true,
+      analytics_view_mode: 'timelines',
     });
   }
 }

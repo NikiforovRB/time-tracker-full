@@ -31,10 +31,11 @@ export default function AnalyticsPage() {
   const { user } = useAuth();
   const { setSelectedDate } = useApp();
   const navigate = useNavigate();
-  const { prefs } = usePreferences();
+  const { prefs, setAnalyticsViewMode } = usePreferences();
   const now = nowInMoscow();
   const [monthDate, setMonthDate] = useState(() => new Date(now.getFullYear(), now.getMonth(), 1));
-  const [viewMode, setViewMode] = useState<'timelines' | 'calendar'>('timelines');
+  const viewMode = (prefs?.analytics_view_mode ?? 'timelines') as 'timelines' | 'calendar';
+  const setViewMode = (mode: 'timelines' | 'calendar') => setAnalyticsViewMode(mode);
   const [records, setRecords] = useState<TimerRecord[]>([]);
   const [categories, setCategories] = useState<TimerCategory[]>([]);
 

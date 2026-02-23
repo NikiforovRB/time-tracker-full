@@ -117,12 +117,13 @@
   display: none;
 }
 
-.timer-stop-btn:hover .timer-stop-icon.default {
-  display: none;
-}
-
-.timer-stop-btn:hover .timer-stop-icon.hover {
-  display: block;
+@media (hover: hover) {
+  .timer-stop-btn:hover .timer-stop-icon.default {
+    display: none;
+  }
+  .timer-stop-btn:hover .timer-stop-icon.hover {
+    display: block;
+  }
 }
 
 .timer-display-row.timer-digits.stopped-only-total {

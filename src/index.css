@@ -60,12 +60,13 @@ button {
   display: none;
 }
 
-.modal-close-img:hover .icon-img.default {
-  display: none;
-}
-
-.modal-close-img:hover .icon-img.hover {
-  display: block;
+@media (hover: hover) {
+  .modal-close-img:hover .icon-img.default {
+    display: none;
+  }
+  .modal-close-img:hover .icon-img.hover {
+    display: block;
+  }
 }
 
 input, select, textarea {

@@ -7,6 +7,7 @@ import { usePreferences } from '../../contexts/PreferencesContext';
 import { ensureUserSetup } from '../../lib/ensureUserSetup';
 import Header from './Header';
 import SettingsModal from '../SettingsModal';
+import refreshIcon from '../../assets/refresh.svg';
 import './MainLayout.css';
 
 export default function MainLayout() {
@@ -49,6 +50,14 @@ export default function MainLayout() {
       {settingsOpen && (
         <SettingsModal onClose={() => setSettingsOpen(false)} />
       )}
+      <button
+        type="button"
+        className="refresh-fab"
+        onClick={() => window.location.reload()}
+        aria-label="Обновить"
+      >
+        <img src={refreshIcon} alt="" />
+      </button>
     </div>
   );
 }

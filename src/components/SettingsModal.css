@@ -46,12 +46,13 @@
   display: none;
 }
 
-.settings-modal .category-row .icon-btn-img:hover .icon-img.default {
-  display: none;
-}
-
-.settings-modal .category-row .icon-btn-img:hover .icon-img.hover {
-  display: block;
+@media (hover: hover) {
+  .settings-modal .category-row .icon-btn-img:hover .icon-img.default {
+    display: none;
+  }
+  .settings-modal .category-row .icon-btn-img:hover .icon-img.hover {
+    display: block;
+  }
 }
 
 .modal-close {
@@ -199,12 +200,13 @@
   display: none;
 }
 
-.category-eye-btn:hover .icon-img.default {
-  display: none;
-}
-
-.category-eye-btn:hover .icon-img.hover {
-  display: block;
+@media (hover: hover) {
+  .category-eye-btn:hover .icon-img.default {
+    display: none;
+  }
+  .category-eye-btn:hover .icon-img.hover {
+    display: block;
+  }
 }
 
 .drag-handle {
