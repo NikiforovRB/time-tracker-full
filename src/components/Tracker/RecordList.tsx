@@ -35,6 +35,8 @@ export default function RecordList({
   const [addOpen, setAddOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [activeLiveMs, setActiveLiveMs] = useState(0);
+  const [isEditingActiveComment, setIsEditingActiveComment] = useState(false);
+  const [activeCommentText, setActiveCommentText] = useState(activeRecord?.comment ?? '');
 
   useEffect(() => {
     if (!activeRecord) {
@@ -47,6 +49,33 @@ export default function RecordList({
     const id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, [activeRecord?.id]);
+
+  useEffect(() => {
+    setActiveCommentText(activeRecord?.comment ?? '');
+  }, [activeRecord?.id, activeRecord?.comment]);
+
+  const handleActiveCommentSave = async () => {
+    if (!activeRecord) return;
+    const trimmed = activeCommentText.trim();
+    const newComment = trimmed.length > 0 ? trimmed : null;
+    await supabase
+      .from('timer_records')
+      .update({ comment: newComment })
+      .eq('id', activeRecord.id);
+    onRecordsChange();
+    setIsEditingActiveComment(false);
+  };
+
+  const handleActiveCommentKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleActiveCommentSave();
+    }
+    if (e.key === 'Escape') {
+      setActiveCommentText(activeRecord?.comment ?? '');
+      setIsEditingActiveComment(false);
+    }
+  };
 
   const getCategory = (categoryId: string | null) => {
     if (!categoryId) return categories.find((c) => (c as { is_system?: boolean }).is_system) ?? { title: 'Без категории', color: '#666666' };
@@ -75,9 +104,38 @@ export default function RecordList({
       <ul className="record-list">
         {activeRecord && (
           <li className="record-item active-record">
-            <span className="record-category" style={{ color: getCategory(activeRecord.category_id).color }}>
-              {getCategory(activeRecord.category_id).title}
-            </span>
+            {isEditingActiveComment ? (
+              <input
+                type="text"
+                className="record-comment-input"
+                value={activeCommentText}
+                onChange={(e) => setActiveCommentText(e.target.value)}
+                onBlur={handleActiveCommentSave}
+                onKeyDown={handleActiveCommentKeyDown}
+                autoFocus
+                placeholder="Введите комментарий"
+              />
+            ) : (
+              <span className="record-category-wrap" onDoubleClick={() => setIsEditingActiveComment(true)}>
+                <span className="record-category-head" style={{ color: getCategory(activeRecord.category_id).color }}>
+                  {getCategory(activeRecord.category_id).title}
+                </span>
+                {activeRecord.comment ? (
+                  <>
+                    <span className="record-comment-bullet"> • </span>
+                    <span className="record-comment-text">{activeRecord.comment}</span>
+                  </>
+                ) : (
+                  <button
+                    type="button"
+                    className="record-comment-btn"
+                    onClick={(e) => { e.stopPropagation(); setIsEditingActiveComment(true); }}
+                  >
+                    • Добавить комментарий
+                  </button>
+                )}
+              </span>
+            )}
             <span className="record-time live">
               {formatDurationTimer(activeLiveMs)}
             </span>
