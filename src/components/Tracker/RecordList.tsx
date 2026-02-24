@@ -91,25 +91,17 @@ export default function RecordList({
             const ms = end.getTime() - start.getTime();
             const cat = getCategory(r.category_id);
             return (
-              <li key={r.id} className="record-item">
-                <span className="record-category" style={{ color: cat.color }}>
-                  {cat.title}
-                </span>
-                <span className="record-time">
-                  <span className="record-interval">{formatTime(start)} - {formatTime(end)} •</span>{' '}
-                  <span className={ms < 60000 ? 'record-duration record-duration-short' : 'record-duration'}>{formatDuration(ms)}</span>
-                </span>
-                <div className="record-actions">
-                  <button type="button" className="icon-btn-small icon-btn-img" onClick={() => setEditingId(r.id)} aria-label="Редактировать">
-                    <img src={editIcon} alt="" className="icon-img default" />
-                    <img src={editNavIcon} alt="" className="icon-img hover" />
-                  </button>
-                  <button type="button" className="icon-btn-small icon-btn-img" onClick={() => handleDelete(r.id)} aria-label="Удалить">
-                    <img src={deleteIcon} alt="" className="icon-img default" />
-                    <img src={deleteNavIcon} alt="" className="icon-img hover" />
-                  </button>
-                </div>
-              </li>
+              <RecordItemWithComment
+                key={r.id}
+                record={r}
+                category={cat}
+                start={start}
+                end={end}
+                ms={ms}
+                onEdit={() => setEditingId(r.id)}
+                onDelete={() => handleDelete(r.id)}
+                onRecordsChange={onRecordsChange}
+              />
             );
           })}
       </ul>
@@ -137,6 +129,108 @@ export default function RecordList({
         />
       )}
     </section>
+  );
+}
+
+type RecordItemWithCommentProps = {
+  record: TimerRecord;
+  category: { title: string; color: string };
+  start: Date;
+  end: Date;
+  ms: number;
+  onEdit: () => void;
+  onDelete: () => void;
+  onRecordsChange: () => void;
+};
+
+function RecordItemWithComment({
+  record,
+  category,
+  start,
+  end,
+  ms,
+  onEdit,
+  onDelete,
+  onRecordsChange,
+}: RecordItemWithCommentProps) {
+  const [isEditingComment, setIsEditingComment] = useState(false);
+  const [commentText, setCommentText] = useState(record.comment || '');
+
+  useEffect(() => {
+    setCommentText(record.comment || '');
+  }, [record.comment]);
+
+  const handleCommentSave = async () => {
+    const trimmed = commentText.trim();
+    const newComment = trimmed.length > 0 ? trimmed : null;
+    await supabase
+      .from('timer_records')
+      .update({ comment: newComment })
+      .eq('id', record.id);
+    onRecordsChange();
+    setIsEditingComment(false);
+  };
+
+  const handleCommentKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleCommentSave();
+    }
+    if (e.key === 'Escape') {
+      setCommentText(record.comment || '');
+      setIsEditingComment(false);
+    }
+  };
+
+  return (
+    <li className="record-item">
+      {isEditingComment ? (
+        <input
+          type="text"
+          className="record-comment-input"
+          value={commentText}
+          onChange={(e) => setCommentText(e.target.value)}
+          onBlur={handleCommentSave}
+          onKeyDown={handleCommentKeyDown}
+          autoFocus
+          placeholder="Введите комментарий"
+        />
+      ) : (
+        <span className="record-category-wrap" onDoubleClick={() => setIsEditingComment(true)}>
+          <span className="record-category-head" style={{ color: category.color }}>
+            {category.title}
+          </span>
+          {record.comment ? (
+            <>
+              <span className="record-comment-bullet"> • </span>
+              <span className="record-comment-text">{record.comment}</span>
+            </>
+          ) : (
+            <button
+              type="button"
+              className="record-comment-btn"
+              onClick={(e) => { e.stopPropagation(); setIsEditingComment(true); }}
+            >
+              • Добавить комментарий
+            </button>
+          )}
+        </span>
+      )}
+      <span className="record-time">
+        <span className="record-interval">{formatTime(start)} - {formatTime(end)} •</span>{' '}
+        <span className={ms < 60000 ? 'record-duration record-duration-short' : 'record-duration'}>{formatDuration(ms)}</span>
+      </span>
+      <div className="record-actions">
+        <button type="button" className="icon-btn-small icon-btn-img" onClick={onEdit} aria-label="Редактировать">
+          <img src={editIcon} alt="" className="icon-img default" />
+          <img src={editNavIcon} alt="" className="icon-img hover" />
+        </button>
+        <button type="button" className="icon-btn-small icon-btn-img" onClick={onDelete} aria-label="Удалить">
+          <img src={deleteIcon} alt="" className="icon-img default" />
+          <img src={deleteNavIcon} alt="" className="icon-img hover" />
+        </button>
+      </div>
+    </li>
   );
 }
 

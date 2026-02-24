@@ -14,6 +14,7 @@ export interface TimerRecord {
   category_id: string | null;
   started_at: string;
   ended_at: string | null;
+  comment: string | null;
 }
 
 export interface UserPreferences {

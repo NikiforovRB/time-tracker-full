@@ -84,7 +84,7 @@
 
 .record-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.75rem;
   padding: 0.6rem 0 0.6rem 0;
   padding-right: 0.75rem;
@@ -103,15 +103,39 @@
   font-variant-numeric: tabular-nums;
 }
 
-.record-category {
-  flex: 0 0 auto;
+.record-category-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.35rem;
+  flex: 1 1 auto;
+  min-width: 0;
   font-size: 0.9375rem;
+  cursor: text;
+}
+
+.record-category-head {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .record-time {
   margin-left: auto;
+  flex-shrink: 0;
   font-size: 0.875rem;
   color: #888;
+}
+
+.record-comment-bullet {
+  flex-shrink: 0;
+  color: #666666;
+}
+
+.record-comment-text {
+  min-width: 0;
+  color: #666666;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .record-duration {
@@ -129,6 +153,7 @@
   transform: translateY(-50%);
   display: none;
   gap: 0.25rem;
+  align-items: center;
 }
 
 .record-item:hover .record-time {
@@ -137,6 +162,22 @@
 
 .record-item:hover .record-actions {
   display: flex;
+}
+
+.record-comment-btn {
+  visibility: hidden;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: #666666;
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.record-item:hover .record-comment-btn {
+  visibility: visible;
 }
 
 .record-item.active-record:hover .record-time {
@@ -158,4 +199,15 @@
 
 .record-item .icon-btn-small:hover {
   color: #fff;
+}
+
+.record-comment-input {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #666666;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  padding: 0;
+  outline: none;
 }
