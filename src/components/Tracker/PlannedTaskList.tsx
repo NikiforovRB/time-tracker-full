@@ -58,8 +58,6 @@ export default function PlannedTaskList({
   const [order, setOrder] = useState<string[]>([]);
 
   const noCategory = categories.find((c) => (c as { is_system?: boolean }).is_system);
-  const visibleCategories = categories.filter((c) => c.is_visible);
-  const options = noCategory ? [noCategory, ...visibleCategories.filter((c) => !(c as { is_system?: boolean }).is_system)] : visibleCategories;
   const isToday = isTodayMoscow(selectedDate);
   const editingTask = editingTaskId ? plannedTasks.find((t) => t.id === editingTaskId) : null;
 

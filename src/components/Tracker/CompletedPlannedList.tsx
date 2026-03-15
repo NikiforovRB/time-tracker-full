@@ -222,7 +222,7 @@ export default function CompletedPlannedList({ categories, selectedDate, onRecor
       el.style.transform = `translateY(${dy}px)`;
     });
     const raf = requestAnimationFrame(() => {
-      toAnimate.forEach(({ el, dy }) => {
+      toAnimate.forEach(({ el }) => {
         el.style.transition = 'transform 0.35s ease';
         el.style.transform = 'translateY(0)';
         el.ontransitionend = () => {
@@ -282,7 +282,7 @@ export default function CompletedPlannedList({ categories, selectedDate, onRecor
 
 function EditCompletedPlannedModal({
   record,
-  records,
+  records: _records,
   categories,
   onClose,
   onSaved,

@@ -62,7 +62,6 @@ export default function Header({
 }: HeaderProps) {
   const location = useLocation();
   const isAnalytics = location.pathname === '/analytics';
-  const isPlan = location.pathname === '/plan';
   const hideDateRow = isAnalytics;
   const dateLabel = formatDateHeader(selectedDate);
 

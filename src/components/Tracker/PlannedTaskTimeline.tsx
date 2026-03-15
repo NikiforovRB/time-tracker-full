@@ -65,7 +65,6 @@ export default function PlannedTaskTimeline({
     const currentTimeStr = `${String(nowZ.getHours()).padStart(2, '0')}:${String(nowZ.getMinutes()).padStart(2, '0')}`;
 
     const totalDuration = plannedMs;
-    const elapsedRatio = elapsedMs / totalDuration;
     const segs: { left: number; width: number; color: string }[] = [];
     let endTimeLeftPct: number;
 
