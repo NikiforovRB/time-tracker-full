@@ -1,0 +1,154 @@
+.completed-planned-section {
+  margin-top: 50px;
+}
+
+.completed-planned-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #2F2F2F;
+}
+
+.completed-planned-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: normal;
+  color: #666666;
+}
+
+.completed-planned-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.completed-planned-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.6rem 0;
+  padding-right: 0.75rem;
+  border-bottom: 1px solid #2F2F2F;
+  flex-wrap: wrap;
+  overflow: visible;
+}
+
+.completed-planned-item-enter {
+  animation: completed-planned-item-enter 0.35s ease forwards;
+}
+
+@keyframes completed-planned-item-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.completed-planned-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+}
+
+.completed-planned-item:last-child {
+  border-bottom: none;
+}
+
+.completed-planned-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: visible;
+}
+
+.completed-planned-title {
+  font-size: 0.9375rem;
+  cursor: text;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.completed-planned-title-input {
+  font-size: 0.9375rem;
+  background: none;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  outline: none;
+  width: 100%;
+}
+
+.completed-planned-meta-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+}
+
+.completed-planned-category {
+  font-size: 0.875rem;
+}
+
+.completed-planned-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.completed-planned-meta {
+  font-size: 0.875rem;
+  color: #666666;
+}
+
+
+.completed-planned-item .planned-item-edit-img .icon-img,
+.completed-planned-item .planned-item-delete-img .icon-img {
+  width: 16px;
+  height: 16px;
+}
+
+.completed-planned-item .planned-item-edit-img .icon-img.hover,
+.completed-planned-item .planned-item-delete-img .icon-img.hover {
+  display: none;
+}
+
+@media (hover: hover) {
+  .completed-planned-item .planned-item-edit-img:hover .icon-img.default,
+  .completed-planned-item .planned-item-delete-img:hover .icon-img.default {
+    display: none;
+  }
+  .completed-planned-item .planned-item-edit-img:hover .icon-img.hover,
+  .completed-planned-item .planned-item-delete-img:hover .icon-img.hover {
+    display: block;
+  }
+}
+
+.completed-planned-item .planned-item-edit,
+.completed-planned-item .planned-item-delete {
+  background: none;
+  border: none;
+  color: #666;
+  padding: 0.25rem;
+  cursor: pointer;
+  display: flex;
+}
+
+.completed-planned-item .planned-item-delete:hover {
+  color: #e66;
+}

@@ -8,6 +8,16 @@ export interface TimerCategory {
   is_system: boolean;
 }
 
+export interface PlannedTask {
+  id: string;
+  user_id: string;
+  title: string;
+  planned_minutes: number | null;
+  category_id: string | null;
+  sort_order: number;
+  created_at: string;
+}
+
 export interface TimerRecord {
   id: string;
   user_id: string;
@@ -15,6 +25,8 @@ export interface TimerRecord {
   started_at: string;
   ended_at: string | null;
   comment: string | null;
+  planned_task_id: string | null;
+  completed_plan_title: string | null;
 }
 
 export interface UserPreferences {

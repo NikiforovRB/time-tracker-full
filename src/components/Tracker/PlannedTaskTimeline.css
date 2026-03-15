@@ -1,0 +1,63 @@
+.planned-task-timeline-wrap {
+  margin-bottom: 1rem;
+}
+
+.planned-task-timeline-title {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: normal;
+  margin-bottom: 0.25rem;
+}
+
+.planned-task-timeline-label {
+  font-size: 0.75rem;
+  color: #888;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-bottom: 0.25rem;
+}
+
+.planned-task-timeline-overflow {
+  color: #b55;
+}
+
+.planned-task-timeline-strip {
+  position: relative;
+  width: 100%;
+  height: 15px;
+  overflow: hidden;
+  border-radius: 2px;
+  background-color: #1a1a1a;
+}
+
+.planned-task-timeline-segment {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.planned-task-timeline-times {
+  position: relative;
+  height: 20px;
+  margin-top: 2px;
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.planned-task-time-start {
+  position: absolute;
+  left: 0;
+  transform: translateX(0);
+}
+
+.planned-task-time-end {
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.planned-task-time-now {
+  position: absolute;
+  right: 0;
+}

@@ -133,7 +133,7 @@ export default function AnalyticsPage() {
       });
       result.push({ date, records: recs, totalMs });
     });
-    result.sort((a, b) => a.date.getTime() - b.date.getTime());
+    result.sort((a, b) => b.date.getTime() - a.date.getTime());
     return result;
   }, [records]);
 

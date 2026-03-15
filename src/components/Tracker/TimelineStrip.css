@@ -2,6 +2,23 @@
   margin-bottom: 1rem;
 }
 
+.timeline-planned-label {
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.timeline-planned-overflow {
+  color: #b55;
+}
+
+.timeline-strip-planned {
+  margin-top: 0.25rem;
+}
+
 .timeline-strip {
   position: relative;
   width: 100%;

@@ -62,6 +62,8 @@ export default function Header({
 }: HeaderProps) {
   const location = useLocation();
   const isAnalytics = location.pathname === '/analytics';
+  const isPlan = location.pathname === '/plan';
+  const hideDateRow = isAnalytics;
   const dateLabel = formatDateHeader(selectedDate);
 
   return (
@@ -70,6 +72,9 @@ export default function Header({
         <nav className="header-tabs">
           <NavLink to="/" end className={({ isActive }) => (isActive ? 'active' : '')}>
             Трекер
+          </NavLink>
+          <NavLink to="/plan" className={({ isActive }) => (isActive ? 'active' : '')}>
+            План
           </NavLink>
           <NavLink to="/analytics" className={({ isActive }) => (isActive ? 'active' : '')}>
             Аналитика
@@ -94,7 +99,7 @@ export default function Header({
           <IconBtn icon={exitIcon} iconHover={exitNavIcon} label="Выйти" title="Выйти" onClick={onLogout} />
         </div>
       </div>
-      {!isAnalytics && (
+      {!hideDateRow && (
         <div className="header-date-row">
           <button type="button" className="header-date-nav header-date-nav-img" onClick={onPrevDate} aria-label="Предыдущая дата">
             <img src={leftIcon} alt="" className="icon-img default" />

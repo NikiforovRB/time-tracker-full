@@ -17,6 +17,7 @@ type TimerBlockProps = {
   totalMs: number;
   onActiveChange: (r: TimerRecord | null) => void;
   onRecordsChange: () => void;
+  planMode?: boolean;
 };
 
 export default function TimerBlock({
@@ -26,6 +27,7 @@ export default function TimerBlock({
   totalMs,
   onActiveChange,
   onRecordsChange,
+  planMode = false,
 }: TimerBlockProps) {
   const { user } = useAuth();
   const [hoverStop, setHoverStop] = useState(false);
@@ -34,6 +36,9 @@ export default function TimerBlock({
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const isToday = isTodayMoscow(selectedDate);
+
+  if (planMode && !activeRecord) return null;
+
   const visibleCategories = categories.filter((c) => c.is_visible);
   const noCategory = categories.find((c) => (c as { is_system?: boolean }).is_system);
   const options = noCategory ? [noCategory, ...visibleCategories.filter((c) => !(c as { is_system?: boolean }).is_system)] : visibleCategories;
@@ -88,7 +93,7 @@ export default function TimerBlock({
 
   if (!options.length) return null;
 
-  if (!isToday) {
+  if (!isToday && !planMode) {
     return (
       <div className="timer-block">
         <div className="timer-display-row timer-digits stopped-only-total">

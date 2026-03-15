@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import MainLayout from './components/Layout/MainLayout';
 import LoginPage from './pages/LoginPage';
 import TrackerPage from './pages/TrackerPage';
+import PlanPage from './pages/PlanPage';
 import AnalyticsPage from './pages/AnalyticsPage';
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
             }
           >
             <Route index element={<TrackerPage />} />
+            <Route path="plan" element={<PlanPage />} />
             <Route path="analytics" element={<AnalyticsPage />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />

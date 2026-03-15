@@ -6,6 +6,20 @@
   font-size: 1rem;
 }
 
+.edit-planned-task-modal,
+.add-planned-task-modal,
+.add-record-modal,
+.edit-record-modal {
+  overflow: visible;
+}
+
+.edit-planned-task-modal .modal-body,
+.add-planned-task-modal .modal-body,
+.add-record-modal .modal-body,
+.edit-record-modal .modal-body {
+  overflow: visible;
+}
+
 .add-record-modal .modal-body {
   display: flex;
   flex-direction: column;
@@ -82,6 +96,29 @@
   min-width: 0;
 }
 
+.form-row-time-align {
+  align-items: flex-end;
+}
+
+.form-time-unit {
+  align-self: flex-end;
+  font-size: 0.875rem;
+  color: #ccc;
+  line-height: 1;
+}
+
+.form-input-multiline,
+.form-input.form-input-multiline {
+  min-height: 2.5em;
+  resize: none;
+  overflow-y: auto;
+}
+
+textarea.form-input-multiline {
+  resize: vertical;
+  min-height: 2.5em;
+}
+
 .edit-category-dropdown {
   position: relative;
 }
@@ -118,7 +155,7 @@
   background: #222;
   border: 1px solid #333;
   border-radius: 6px;
-  max-height: 200px;
+  max-height: 400px;
   overflow: auto;
   z-index: 10;
 }
