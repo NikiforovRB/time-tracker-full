@@ -298,6 +298,7 @@ function PlannedTaskItem({
           )}
         </div>
         <div className="planned-item-right">
+          {timeLabel && <span className="planned-item-time">{timeLabel}</span>}
           <button type="button" className="planned-item-edit planned-item-edit-img" onClick={onEdit} aria-label="Редактировать">
             <img src={editIcon} alt="" className="icon-img default" />
             <img src={editNavIcon} alt="" className="icon-img hover" />
@@ -306,9 +307,8 @@ function PlannedTaskItem({
             <img src={deleteIcon} alt="" className="icon-img default" />
             <img src={deleteNavIcon} alt="" className="icon-img hover" />
           </button>
-          {timeLabel && <span className="planned-item-time">{timeLabel}</span>}
+          {dragHandle}
         </div>
-        {dragHandle}
       </div>
   );
 
