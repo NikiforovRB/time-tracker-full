@@ -99,7 +99,12 @@ function CompletedPlannedItem({
             </span>
           )}
           <span className="completed-planned-meta">
-            Факт: {formatTime(start)} - {formatTime(end)} • {formatDuration(actualMs)}
+            Факт: {formatTime(start)} - {formatTime(end)} •{' '}
+            {plannedMs > 0 && actualMs < plannedMs ? (
+              <span style={{ color: '#48c011' }}>{formatDuration(actualMs)}</span>
+            ) : (
+              formatDuration(actualMs)
+            )}
           </span>
         </div>
         <button type="button" className="planned-item-edit planned-item-edit-img" onClick={onEditRecord} aria-label="Редактировать">
