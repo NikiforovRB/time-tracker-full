@@ -11,6 +11,8 @@ import deleteIcon from '../../assets/delete.svg';
 import deleteNavIcon from '../../assets/delete-nav.svg';
 import closeIcon from '../../assets/close.svg';
 import closeNavIcon from '../../assets/close-nav.svg';
+import plusIcon from '../../assets/plus.svg';
+import plusNavIcon from '../../assets/plus-nav.svg';
 import type { TimerRecord } from '../../types/db';
 import type { TimerCategory } from '../../types/db';
 import type { PlannedTask } from '../../types/db';
@@ -160,6 +162,7 @@ export default function CompletedPlannedList({ categories, selectedDate, onRecor
   const [completed, setCompleted] = useState<CompletedItem[]>([]);
   const [plannedTasksMap, setPlannedTasksMap] = useState<Record<string, PlannedTask>>({});
   const [editingRecordId, setEditingRecordId] = useState<string | null>(null);
+  const [addOpen, setAddOpen] = useState(false);
   const [justAddedId, setJustAddedId] = useState<string | null>(null);
   const prevPositions = useRef<Record<string, number>>({});
   const listRef = useRef<HTMLUListElement>(null);
@@ -243,6 +246,10 @@ export default function CompletedPlannedList({ categories, selectedDate, onRecor
     <section className="completed-planned-section">
       <div className="completed-planned-header">
         <h3>Выполненные задачи</h3>
+        <button type="button" className="planned-list-add planned-list-add-img" onClick={() => setAddOpen(true)} aria-label="Добавить выполненную задачу">
+          <img src={plusIcon} alt="" className="icon-img default" />
+          <img src={plusNavIcon} alt="" className="icon-img hover" />
+        </button>
       </div>
       <ul ref={listRef} className="completed-planned-list">
         {completed.map((record) => (
@@ -263,6 +270,18 @@ export default function CompletedPlannedList({ categories, selectedDate, onRecor
         ))}
       </ul>
 
+      {addOpen && (
+        <AddCompletedPlannedModal
+          selectedDate={selectedDate}
+          categories={categories}
+          onClose={() => setAddOpen(false)}
+          onAdded={() => {
+            setAddOpen(false);
+            loadCompleted();
+            onRecordsChange();
+          }}
+        />
+      )}
       {editingRecord && (
         <EditCompletedPlannedModal
           record={editingRecord}
@@ -277,6 +296,186 @@ export default function CompletedPlannedList({ categories, selectedDate, onRecor
         />
       )}
     </section>
+  );
+}
+
+function AddCompletedPlannedModal({
+  selectedDate,
+  categories,
+  onClose,
+  onAdded,
+}: {
+  selectedDate: Date;
+  categories: TimerCategory[];
+  onClose: () => void;
+  onAdded: () => void;
+}) {
+  const { user } = useAuth();
+  const planDateStr = useMemo(
+    () =>
+      `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`,
+    [selectedDate]
+  );
+  const defaultStart = '09:00';
+  const defaultEnd = '10:00';
+  const [title, setTitle] = useState('');
+  const [categoryId, setCategoryId] = useState<string | null>(null);
+  const [plannedHours, setPlannedHours] = useState<number | ''>('');
+  const [plannedMinutes, setPlannedMinutes] = useState<number | ''>('');
+  const [startTime, setStartTime] = useState(defaultStart);
+  const [endTime, setEndTime] = useState(defaultEnd);
+  const [error, setError] = useState('');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const noCategory = categories.find((c) => (c as { is_system?: boolean }).is_system);
+  const visibleCategories = categories.filter((c) => c.is_visible);
+  const categoryOptions = noCategory ? [noCategory, ...visibleCategories.filter((c) => !(c as { is_system?: boolean }).is_system)] : visibleCategories;
+  const selectedCat = categoryId ? categories.find((c) => c.id === categoryId) : noCategory;
+  const selectedColor = selectedCat?.color ?? '#666666';
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) setDropdownOpen(false);
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user?.id) return;
+    const t = title.trim() || 'Задача';
+    const started_at = toMoscowISO(selectedDate, startTime);
+    const ended_at = toMoscowISO(selectedDate, endTime);
+    if (ended_at <= started_at) {
+      setError('Время окончания должно быть позже начала');
+      return;
+    }
+    setError('');
+    const h = plannedHours === '' ? 0 : Math.max(0, Number(plannedHours));
+    const m = plannedMinutes === '' ? 0 : Math.max(0, Number(plannedMinutes));
+    const totalMins = h * 60 + m;
+    const planned = totalMins > 0 ? totalMins : null;
+    const { data: taskRow } = await supabase
+      .from('planned_tasks')
+      .insert({
+        user_id: user.id,
+        title: t,
+        planned_minutes: planned,
+        plan_date: planDateStr,
+        sort_order: 0,
+        category_id: categoryId,
+      })
+      .select('id')
+      .single();
+    if (!taskRow?.id) {
+      setError('Не удалось создать задачу');
+      return;
+    }
+    await supabase.from('timer_records').insert({
+      user_id: user.id,
+      planned_task_id: taskRow.id,
+      category_id: categoryId,
+      started_at,
+      ended_at,
+    });
+    onAdded();
+  };
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal add-record-modal edit-record-modal" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-header">
+          <h2>Добавить выполненную задачу</h2>
+          <button type="button" className="modal-close modal-close-img" onClick={onClose} aria-label="Закрыть">
+            <img src={closeIcon} alt="" className="icon-img default" />
+            <img src={closeNavIcon} alt="" className="icon-img hover" />
+          </button>
+        </div>
+        <form onSubmit={handleSubmit} className="modal-body">
+          <label className="form-label">
+            Заголовок
+            <input
+              type="text"
+              className="form-input"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Новая задача"
+            />
+          </label>
+          <label className="form-label">
+            Категория
+            <div className="edit-category-dropdown" ref={dropdownRef}>
+              <button type="button" className="edit-category-trigger" onClick={() => setDropdownOpen((o) => !o)} aria-expanded={dropdownOpen}>
+                <span className="edit-category-dot" style={{ backgroundColor: selectedColor }} />
+                <span style={{ color: selectedColor }}>{selectedCat?.title ?? 'Без категории'}</span>
+              </button>
+              {dropdownOpen && (
+                <div className="edit-category-list">
+                  {categoryOptions.map((c) => (
+                    <button
+                      key={c.id}
+                      type="button"
+                      className="edit-category-option"
+                      style={{ color: (c as { is_system?: boolean }).is_system ? '#666666' : c.color }}
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        setCategoryId((c as { is_system?: boolean }).is_system ? null : c.id);
+                        setDropdownOpen(false);
+                      }}
+                    >
+                      <span className="edit-category-dot" style={{ backgroundColor: (c as { is_system?: boolean }).is_system ? '#666666' : c.color }} />
+                      {c.title}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </label>
+          <label className="form-label">
+            План
+            <div className="form-row-fields">
+              <label className="form-label form-label-inline">
+                <input
+                  type="number"
+                  min={0}
+                  className="form-input"
+                  value={plannedHours}
+                  onChange={(e) => setPlannedHours(e.target.value === '' ? '' : e.target.valueAsNumber)}
+                  placeholder="0"
+                />
+                <span className="form-unit">ч</span>
+              </label>
+              <label className="form-label form-label-inline">
+                <input
+                  type="number"
+                  min={0}
+                  className="form-input"
+                  value={plannedMinutes}
+                  onChange={(e) => setPlannedMinutes(e.target.value === '' ? '' : e.target.valueAsNumber)}
+                  placeholder="0"
+                />
+                <span className="form-unit">м</span>
+              </label>
+            </div>
+          </label>
+          <div className="form-label add-completed-fact-heading">Факт</div>
+          <div className="form-row-fields">
+            <label className="form-label">
+              Начало
+              <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} className="form-input" />
+            </label>
+            <label className="form-label">
+              Конец
+              <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} className="form-input" />
+            </label>
+          </div>
+          {error && <p className="form-error">{error}</p>}
+          <button type="submit" className="btn-primary btn-save btn-full">Добавить</button>
+        </form>
+      </div>
+    </div>
   );
 }
 

@@ -254,3 +254,7 @@
     font-size: 0.8125rem;
   }
 }
+
+.add-completed-fact-heading {
+  margin-top: 20px;
+}

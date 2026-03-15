@@ -19,7 +19,7 @@ type OutletContext = { completedBlockVisible: boolean };
 export default function PlanPage() {
   const { user } = useAuth();
   const { selectedDate } = useApp();
-  const { completedBlockVisible } = useOutletContext<OutletContext>();
+  const { completedBlockVisible = true } = useOutletContext<OutletContext>() ?? {};
   const [categories, setCategories] = useState<TimerCategory[]>([]);
   const [plannedTasks, setPlannedTasks] = useState<PlannedTask[]>([]);
   const [completedPlannedTaskIds, setCompletedPlannedTaskIds] = useState<Set<string>>(new Set());

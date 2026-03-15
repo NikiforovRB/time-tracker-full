@@ -96,6 +96,23 @@
   min-width: 0;
 }
 
+.form-label.form-label-inline {
+  flex: 0 1 auto;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.form-label-inline .form-input {
+  width: 4rem;
+  min-width: 3rem;
+}
+
+.form-unit {
+  font-size: 0.875rem;
+  color: #888;
+}
+
 .form-row-time-align {
   align-items: flex-end;
 }

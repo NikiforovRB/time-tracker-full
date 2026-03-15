@@ -23,7 +23,7 @@ export default function TrackerPage() {
   const { user } = useAuth();
   const { selectedDate } = useApp();
   const { prefs, setTimelineStartHour, setTimelineEndHour } = usePreferences();
-  const { timelineVisible, completedBlockVisible } = useOutletContext<OutletContext>();
+  const { timelineVisible = true, completedBlockVisible = true } = useOutletContext<OutletContext>() ?? {};
 
   const [categories, setCategories] = useState<TimerCategory[]>([]);
   const [records, setRecords] = useState<TimerRecord[]>([]);
