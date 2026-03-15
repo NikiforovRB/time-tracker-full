@@ -102,28 +102,26 @@ export default function EditPlannedTaskModal({
             />
           </label>
           <label className="form-label">
-            Время на задачу (ч и м)
-            <div className="form-row-fields">
+            Время на задачу
+            <div className="form-row-fields form-row-time-align">
               <input
                 type="number"
                 min={0}
                 max={99}
                 value={plannedHours}
                 onChange={(e) => setPlannedHours(Math.max(0, parseInt(e.target.value, 10) || 0))}
-                className="form-input"
-                style={{ width: 70 }}
+                className="form-input form-input-time"
               />
-              <span className="form-label" style={{ margin: 0 }}>ч</span>
+              <span className="form-time-unit">ч</span>
               <input
                 type="number"
                 min={0}
                 max={59}
                 value={plannedMinutes}
                 onChange={(e) => setPlannedMinutes(Math.min(59, Math.max(0, parseInt(e.target.value, 10) || 0)))}
-                className="form-input"
-                style={{ width: 70 }}
+                className="form-input form-input-time"
               />
-              <span className="form-label" style={{ margin: 0 }}>м</span>
+              <span className="form-time-unit">м</span>
             </div>
           </label>
           <label className="form-label">

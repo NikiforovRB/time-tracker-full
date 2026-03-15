@@ -107,6 +107,24 @@
   line-height: 1;
 }
 
+.form-input-time {
+  width: 35px;
+  -moz-appearance: textfield;
+}
+
+.form-input-time::-webkit-inner-spin-button,
+.form-input-time::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.add-record-modal .btn-primary,
+.edit-record-modal .btn-primary,
+.add-record-modal .btn-save,
+.edit-record-modal .btn-save {
+  font-size: 1.05rem;
+}
+
 .form-input-multiline,
 .form-input.form-input-multiline {
   min-height: 2.5em;

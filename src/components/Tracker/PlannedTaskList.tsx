@@ -152,6 +152,7 @@ export default function PlannedTaskList({
       {addOpen && (
         <AddPlannedTaskModal
           categories={categories}
+          selectedDate={selectedDate}
           onClose={() => setAddOpen(false)}
           onAdded={onTasksChange}
         />

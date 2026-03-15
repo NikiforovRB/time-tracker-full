@@ -15,6 +15,7 @@ export interface PlannedTask {
   planned_minutes: number | null;
   category_id: string | null;
   sort_order: number;
+  plan_date: string; // YYYY-MM-DD (calendar day in Moscow)
   created_at: string;
 }
 

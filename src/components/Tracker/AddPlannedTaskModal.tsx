@@ -8,12 +8,14 @@ import './AddRecordModal.css';
 
 type AddPlannedTaskModalProps = {
   categories: TimerCategory[];
+  selectedDate: Date;
   onClose: () => void;
   onAdded: () => void;
 };
 
 export default function AddPlannedTaskModal({
   categories,
+  selectedDate,
   onClose,
   onAdded,
 }: AddPlannedTaskModalProps) {
@@ -56,12 +58,14 @@ export default function AddPlannedTaskModal({
     if (!user?.id) return;
     const totalMinutes = plannedHours * 60 + plannedMinutes;
     const planned_minutes = totalMinutes > 0 ? totalMinutes : null;
+    const plan_date = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
     const { error } = await supabase.from('planned_tasks').insert({
       user_id: user.id,
       title: title.trim() || 'Новая задача',
       planned_minutes,
       category_id: (selectedCat && !(selectedCat as { is_system?: boolean }).is_system) ? selectedCat.id : null,
       sort_order: 0,
+      plan_date,
     });
     if (error) {
       console.error(error);
@@ -103,8 +107,7 @@ export default function AddPlannedTaskModal({
                 max={99}
                 value={plannedHours}
                 onChange={(e) => setPlannedHours(Math.max(0, parseInt(e.target.value, 10) || 0))}
-                className="form-input"
-                style={{ width: 70 }}
+                className="form-input form-input-time"
               />
               <span className="form-time-unit">ч</span>
               <input
@@ -113,8 +116,7 @@ export default function AddPlannedTaskModal({
                 max={59}
                 value={plannedMinutes}
                 onChange={(e) => setPlannedMinutes(Math.min(59, Math.max(0, parseInt(e.target.value, 10) || 0)))}
-                className="form-input"
-                style={{ width: 70 }}
+                className="form-input form-input-time"
               />
               <span className="form-time-unit">м</span>
             </div>

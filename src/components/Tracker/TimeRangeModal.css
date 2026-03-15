@@ -3,7 +3,7 @@
 }
 
 .time-range-modal .modal-body {
-  padding: 1rem;
+  padding: calc(1rem + 10px);
 }
 
 .time-range-buttons {

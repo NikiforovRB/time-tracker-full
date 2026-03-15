@@ -27,6 +27,11 @@ export default function PlanPage() {
   const [tick, setTick] = useState(0);
 
   const dayBounds = useMemo(() => dayBoundsUtc(selectedDate), [selectedDate]);
+  const planDateStr = useMemo(
+    () =>
+      `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`,
+    [selectedDate]
+  );
 
   useEffect(() => {
     if (!activeRecord) return;
@@ -50,6 +55,7 @@ export default function PlanPage() {
       .from('planned_tasks')
       .select('*')
       .eq('user_id', user.id)
+      .eq('plan_date', planDateStr)
       .order('sort_order', { ascending: true })
       .then(({ data }) => setPlannedTasks((data as PlannedTask[]) ?? []));
   };
@@ -88,9 +94,12 @@ export default function PlanPage() {
 
   useEffect(() => {
     loadCategories();
-    loadPlannedTasks();
     refetchActiveRecord();
   }, [user?.id]);
+
+  useEffect(() => {
+    loadPlannedTasks();
+  }, [user?.id, planDateStr]);
 
   useEffect(() => {
     loadCompletedPlannedTaskIds();
