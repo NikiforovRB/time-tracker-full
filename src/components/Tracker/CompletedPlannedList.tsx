@@ -99,7 +99,7 @@ function CompletedPlannedItem({
             <img src={editIcon} alt="" className="icon-img default" />
             <img src={editNavIcon} alt="" className="icon-img hover" />
           </button>
-          <button type="button" className="planned-item-delete planned-item-delete-img" onClick={async () => { await supabase.from('timer_records').delete().eq('id', record.id); onDelete(); }} aria-label="Удалить">
+          <button type="button" className="planned-item-delete planned-item-delete-img" onClick={async () => { await supabase.from('timer_records').delete().eq('id', record.id); if (record.planned_task_id) await supabase.from('planned_tasks').delete().eq('id', record.planned_task_id); onDelete(); }} aria-label="Удалить">
             <img src={deleteIcon} alt="" className="icon-img default" />
             <img src={deleteNavIcon} alt="" className="icon-img hover" />
           </button>
