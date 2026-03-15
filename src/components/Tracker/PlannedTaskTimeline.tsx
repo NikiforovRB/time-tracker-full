@@ -34,7 +34,7 @@ export default function PlannedTaskTimeline({
   noCategoryColor,
   minuteTick,
 }: PlannedTaskTimelineProps) {
-  const { plannedLabel, overflowLabel, segments, startTimeStr, endTimeStr, currentTimeStr, hasOverflow, endTimePositionPct } = useMemo(() => {
+  const { plannedLabel, overflowLabel, segments, startTimeStr, endTimeStr, currentTimeStr, hasOverflow, endTimePositionPct, showEndTimeLabel } = useMemo(() => {
     if (plannedTask.planned_minutes == null || plannedTask.planned_minutes <= 0) {
       return {
         plannedLabel: '',
@@ -44,7 +44,8 @@ export default function PlannedTaskTimeline({
         endTimeStr: '',
         currentTimeStr: '',
         hasOverflow: false,
-        endTimeLeftPct: 100,
+        endTimePositionPct: 100,
+        showEndTimeLabel: true,
       };
     }
     const plannedMs = plannedTask.planned_minutes * 60 * 1000;
@@ -87,6 +88,8 @@ export default function PlannedTaskTimeline({
 
     const hasOverflow = overflowMs > 0;
     const endTimePositionPct = hasOverflow ? endTimeLeftPct : 100;
+    const minGapPct = 5;
+    const showEndTimeLabel = !hasOverflow || endTimePositionPct <= 100 - minGapPct;
 
     return {
       plannedLabel,
@@ -97,6 +100,7 @@ export default function PlannedTaskTimeline({
       currentTimeStr,
       hasOverflow,
       endTimePositionPct,
+      showEndTimeLabel,
     };
   }, [activeRecord, plannedTask, categories, noCategoryColor, minuteTick]);
 
@@ -122,15 +126,17 @@ export default function PlannedTaskTimeline({
       </div>
       <div className="planned-task-timeline-times">
         <span className="planned-task-time-start">{startTimeStr}</span>
-        <span
-          className="planned-task-time-end"
-          style={{
-            left: `${endTimePositionPct}%`,
-            transform: endTimePositionPct >= 100 ? 'translateX(-100%)' : 'translateX(-50%)',
-          }}
-        >
-          {endTimeStr}
-        </span>
+        {showEndTimeLabel && (
+          <span
+            className="planned-task-time-end"
+            style={{
+              left: `${endTimePositionPct}%`,
+              transform: endTimePositionPct >= 100 ? 'translateX(-100%)' : 'translateX(-50%)',
+            }}
+          >
+            {endTimeStr}
+          </span>
+        )}
         {hasOverflow && <span className="planned-task-time-now">{currentTimeStr}</span>}
       </div>
     </div>

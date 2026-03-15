@@ -113,7 +113,7 @@ function CompletedPlannedItem({
             )}
             <span className="completed-planned-meta">
               Факт: {formatTime(start)} - {formatTime(end)} •{' '}
-              {plannedMs > 0 && actualMs < plannedMs ? (
+              {plannedMs > 0 && actualMs <= plannedMs + 60 * 1000 ? (
                 <span style={{ color: '#48c011' }}>{formatDuration(actualMs)}</span>
               ) : (
                 formatDuration(actualMs)
