@@ -48,6 +48,17 @@
   background: transparent;
 }
 
+@media (max-width: 499px) {
+  .header-tabs {
+    gap: 0.35rem;
+  }
+
+  .header-tabs a {
+    padding: 0.4rem 0.55rem;
+    font-size: 0.9rem;
+  }
+}
+
 .header-date-row {
   position: absolute;
   left: 50%;

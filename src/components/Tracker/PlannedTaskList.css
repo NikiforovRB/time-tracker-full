@@ -302,3 +302,45 @@
 .planned-item .category-drop-item:hover {
   background: #2a2a2a;
 }
+
+@media (max-width: 499px) {
+  .planned-item-row1 {
+    flex-wrap: wrap;
+  }
+
+  .planned-item-right {
+    display: contents;
+  }
+
+  .planned-item-start {
+    order: 0;
+  }
+
+  .planned-item-head {
+    order: 1;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .planned-item-row1 .planned-item-edit {
+    order: 2;
+  }
+
+  .planned-item-row1 .planned-item-delete {
+    order: 3;
+  }
+
+  .planned-item-drag-handle {
+    order: 4;
+  }
+
+  .planned-item-time {
+    order: 5;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .planned-item-row1:has(.planned-item-start) .planned-item-time {
+    padding-left: 2.25rem;
+  }
+}

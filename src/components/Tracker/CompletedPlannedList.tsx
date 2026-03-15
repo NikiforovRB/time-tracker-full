@@ -70,21 +70,23 @@ function CompletedPlannedItem({
     >
       <img src={kvcompleteIcon} alt="" className="completed-planned-icon" />
       <div className="completed-planned-left">
-        {editingTitle ? (
-          <input
-            type="text"
-            className="completed-planned-title-input"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            onBlur={saveTitle}
-            onKeyDown={(e) => e.key === 'Enter' && saveTitle()}
-            autoFocus
-          />
-        ) : (
-          <span className="completed-planned-title" onClick={() => setEditingTitle(true)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && setEditingTitle(true)}>
-            {displayTitle}
-          </span>
-        )}
+        <div className="completed-planned-title-wrap">
+          {editingTitle ? (
+            <input
+              type="text"
+              className="completed-planned-title-input"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              onBlur={saveTitle}
+              onKeyDown={(e) => e.key === 'Enter' && saveTitle()}
+              autoFocus
+            />
+          ) : (
+            <span className="completed-planned-title" onClick={() => setEditingTitle(true)} role="button" tabIndex={0} onKeyDown={(e) => e.key === 'Enter' && setEditingTitle(true)}>
+              {displayTitle}
+            </span>
+          )}
+        </div>
         {record.category_id && cat && !(cat as { is_system?: boolean }).is_system && (
           <span className="completed-planned-category" style={{ color: cat.color }}>
             {cat.title}
@@ -92,29 +94,33 @@ function CompletedPlannedItem({
         )}
       </div>
       <div className="completed-planned-right">
-        <div className="completed-planned-meta-block">
-          {plannedMs > 0 && (
-            <span className="completed-planned-meta">
-              План: {formatDuration(plannedMs)}
-            </span>
-          )}
-          <span className="completed-planned-meta">
-            Факт: {formatTime(start)} - {formatTime(end)} •{' '}
-            {plannedMs > 0 && actualMs < plannedMs ? (
-              <span style={{ color: '#48c011' }}>{formatDuration(actualMs)}</span>
-            ) : (
-              formatDuration(actualMs)
-            )}
-          </span>
+        <div className="completed-planned-actions">
+          <button type="button" className="planned-item-edit planned-item-edit-img" onClick={onEditRecord} aria-label="Редактировать">
+            <img src={editIcon} alt="" className="icon-img default" />
+            <img src={editNavIcon} alt="" className="icon-img hover" />
+          </button>
+          <button type="button" className="planned-item-delete planned-item-delete-img" onClick={async () => { await supabase.from('timer_records').delete().eq('id', record.id); onDelete(); }} aria-label="Удалить">
+            <img src={deleteIcon} alt="" className="icon-img default" />
+            <img src={deleteNavIcon} alt="" className="icon-img hover" />
+          </button>
         </div>
-        <button type="button" className="planned-item-edit planned-item-edit-img" onClick={onEditRecord} aria-label="Редактировать">
-          <img src={editIcon} alt="" className="icon-img default" />
-          <img src={editNavIcon} alt="" className="icon-img hover" />
-        </button>
-        <button type="button" className="planned-item-delete planned-item-delete-img" onClick={async () => { await supabase.from('timer_records').delete().eq('id', record.id); onDelete(); }} aria-label="Удалить">
-          <img src={deleteIcon} alt="" className="icon-img default" />
-          <img src={deleteNavIcon} alt="" className="icon-img hover" />
-        </button>
+        <div className="completed-planned-below-wrap">
+          <div className="completed-planned-meta-block">
+            {plannedMs > 0 && (
+              <span className="completed-planned-meta">
+                План: {formatDuration(plannedMs)}
+              </span>
+            )}
+            <span className="completed-planned-meta">
+              Факт: {formatTime(start)} - {formatTime(end)} •{' '}
+              {plannedMs > 0 && actualMs < plannedMs ? (
+                <span style={{ color: '#48c011' }}>{formatDuration(actualMs)}</span>
+              ) : (
+                formatDuration(actualMs)
+              )}
+            </span>
+          </div>
+        </div>
       </div>
     </li>
   );
