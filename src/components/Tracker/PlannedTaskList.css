@@ -306,6 +306,7 @@
 @media (max-width: 499px) {
   .planned-item-row1 {
     flex-wrap: wrap;
+    padding-left: 2.25rem;
   }
 
   .planned-item-right {
@@ -314,6 +315,7 @@
 
   .planned-item-start {
     order: 0;
+    margin-left: -2.25rem;
   }
 
   .planned-item-head {
@@ -338,9 +340,6 @@
     order: 5;
     width: 100%;
     box-sizing: border-box;
-  }
-
-  .planned-item-row1:has(.planned-item-start) .planned-item-time {
-    padding-left: 2.25rem;
+    padding-left: 0;
   }
 }
