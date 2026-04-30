@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Play } from 'lucide-react';
+import { Play, RotateCcw } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 import stopIcon from '../../assets/stop.svg';
 import stopIconHover from '../../assets/stop-nav.svg';
@@ -33,6 +33,8 @@ export default function TimerBlock({
   const [hoverStop, setHoverStop] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
+  const [timerViewMode, setTimerViewMode] = useState<'normal' | 'countdown'>('normal');
+  const [plannedMs, setPlannedMs] = useState<number>(0);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const isToday = isTodayMoscow(selectedDate);
@@ -48,6 +50,7 @@ export default function TimerBlock({
     : (selectedCategoryId ? categories.find((c) => c.id === selectedCategoryId) : noCategory) ?? visibleCategories[0] ?? noCategory;
   const displayColor = displayCategory?.color ?? '#666666';
   const isRunning = !!activeRecord;
+  const isOverrun = timerViewMode === 'countdown' && plannedMs > 0 && totalMs > plannedMs;
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -56,6 +59,27 @@ export default function TimerBlock({
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  useEffect(() => {
+    if (!activeRecord?.planned_task_id) {
+      setPlannedMs(0);
+      return;
+    }
+    let cancelled = false;
+    supabase
+      .from('planned_tasks')
+      .select('planned_minutes')
+      .eq('id', activeRecord.planned_task_id)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (cancelled) return;
+        const mins = Number((data as { planned_minutes?: number | null } | null)?.planned_minutes ?? 0);
+        setPlannedMs(mins > 0 ? mins * 60 * 1000 : 0);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [activeRecord?.planned_task_id]);
 
   const startTimer = async (categoryId: string | null) => {
     if (!user?.id) return;
@@ -89,7 +113,9 @@ export default function TimerBlock({
     startTimer(cat && (cat as { is_system?: boolean }).is_system ? null : (cat?.id ?? null));
   };
 
-  const displayMs = totalMs;
+  const countdownMs = plannedMs - totalMs;
+  const displayMs = timerViewMode === 'countdown' && plannedMs > 0 ? Math.abs(countdownMs) : totalMs;
+  const timerText = formatDurationTimer(displayMs);
 
   if (!options.length) return null;
 
@@ -133,19 +159,35 @@ export default function TimerBlock({
             onMouseEnter={() => setHoverStop(true)}
             onMouseLeave={() => setHoverStop(false)}
           >
+            {isOverrun && <div className="timer-overrun-label">Превышение</div>}
             {hoverStop ? (
-              <button type="button" className="timer-stop-btn" onClick={stopTimer} aria-label="Остановить таймер">
-                <img src={stopIcon} alt="" className="timer-stop-icon default" />
-                <img src={stopIconHover} alt="" className="timer-stop-icon hover" />
-              </button>
+              <div className="timer-running-controls">
+                <button type="button" className="timer-stop-btn" onClick={stopTimer} aria-label="Остановить таймер">
+                  <img src={stopIcon} alt="" className="timer-stop-icon default" />
+                  <img src={stopIconHover} alt="" className="timer-stop-icon hover" />
+                </button>
+                {planMode && (
+                  <button
+                    type="button"
+                    className={`timer-mode-btn${timerViewMode === 'countdown' ? ' active' : ''}`}
+                    onClick={() => setTimerViewMode((prev) => (prev === 'normal' ? 'countdown' : 'normal'))}
+                    aria-label={timerViewMode === 'normal' ? 'Включить обратный отсчёт' : 'Включить обычный режим'}
+                    title={timerViewMode === 'normal' ? 'Обратный отсчёт' : 'Обычный режим'}
+                  >
+                    <RotateCcw size={16} />
+                  </button>
+                )}
+              </div>
             ) : (
-              <span className="timer-digits-text">{formatDurationTimer(displayMs)}</span>
+              <span className={`timer-digits-text${isOverrun ? ' overrun' : ''}`}>{timerText}</span>
             )}
           </div>
-          <div className="timer-category-below" style={{ color: displayColor }}>
-            <span className="timer-category-below-bg" style={{ backgroundColor: displayColor }} />
-            {displayCategory?.title ?? 'Без категории'}
-          </div>
+          {activeRecord?.category_id && displayCategory && !(displayCategory as { is_system?: boolean }).is_system && (
+            <div className="timer-category-below" style={{ color: displayColor }}>
+              <span className="timer-category-below-bg" style={{ backgroundColor: displayColor }} />
+              {displayCategory.title}
+            </div>
+          )}
         </>
       ) : (
         <div className="timer-stopped-hover-wrap">

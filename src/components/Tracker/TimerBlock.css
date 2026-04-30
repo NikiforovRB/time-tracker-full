@@ -75,6 +75,10 @@
   font-variant-numeric: tabular-nums;
 }
 
+.timer-digits-text.overrun {
+  color: #e44b4b !important;
+}
+
 .timer-digits.running .timer-digits-text {
   font-size: 1.75rem;
   color: #ffffff;
@@ -129,6 +133,44 @@
 .timer-display-row.timer-digits.stopped-only-total {
   min-height: 48px;
   justify-content: center;
+}
+
+.timer-running-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.timer-mode-btn {
+  background: none;
+  border: none;
+  color: #888;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.timer-mode-btn:hover {
+  color: #fff;
+}
+
+.timer-mode-btn.active {
+  color: #5a86ee;
+}
+
+.timer-overrun-label {
+  position: absolute;
+  top: -0.85rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.6875rem;
+  line-height: 1;
+  color: #e44b4b;
 }
 
 .timer-total-day {
