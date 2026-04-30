@@ -159,7 +159,7 @@ export default function TimerBlock({
             onMouseEnter={() => setHoverStop(true)}
             onMouseLeave={() => setHoverStop(false)}
           >
-            {isOverrun && <div className="timer-overrun-label">Превышение</div>}
+            {isOverrun && <div className="timer-overrun-label">Дополнительное время</div>}
             {hoverStop ? (
               <div className="timer-running-controls">
                 <button type="button" className="timer-stop-btn" onClick={stopTimer} aria-label="Остановить таймер">
